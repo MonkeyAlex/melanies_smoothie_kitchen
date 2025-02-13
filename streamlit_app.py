@@ -1,13 +1,13 @@
 # Import python packages
 import streamlit as st
-from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col, when_matched
 
 # Write directly to the app
 st.title("🥤 Pending Smoothie Orders 🥤")
 st.write("Orders that need to be filled.")
 
-session = get_active_session()
+cnx = st.connect("snowflake")
+session = cnx.session()
 my_dataframe = session.table("SMOOTHIES.PUBLIC.ORDERS") \
     .filter(col("ORDER_FILLED") == 0) \
     .collect()
