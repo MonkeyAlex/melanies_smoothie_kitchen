@@ -6,8 +6,9 @@ from snowflake.snowpark.functions import col, when_matched
 st.title("🥤 Pending Smoothie Orders 🥤")
 st.write("Orders that need to be filled.")
 
-cnx = st.connect("snowflake")
+cnx = st.connection("snowflake")
 session = cnx.session()
+
 my_dataframe = session.table("SMOOTHIES.PUBLIC.ORDERS") \
     .filter(col("ORDER_FILLED") == 0) \
     .collect()
